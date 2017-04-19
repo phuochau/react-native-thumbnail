@@ -1,0 +1,24 @@
+
+{
+  "name": "react-native-thumbnail",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phuochau/react-native-thumbnail.git"
+  },
+  "author": "",
+  "license": "",
+  "peerDependencies": {
+    "react-native": "^0.43.3",
+    "react-native-windows": "0.41.0-rc.1"
+
+  }
+}
