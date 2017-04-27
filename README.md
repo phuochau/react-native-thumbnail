@@ -48,7 +48,7 @@ Get thumbnail from local media. Currently, it only supports for video.
 ```javascript
 import RNThumbnail from 'react-native-thumbnail';
 
-// TODO: What to do with the module?
-RNThumbnail;
+RNThumbnail.get(filepath).then((result) => {
+  console.log(result.path); // thumbnail path
+})
 ```
-  
