@@ -1,7 +1,7 @@
 
 {
   "name": "react-native-thumbnail",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,6 @@
   "author": "",
   "license": "",
   "peerDependencies": {
-    "react-native": "^0.43.3",
-    "react-native-windows": "0.41.0-rc.1"
-
+    "react-native": "^0.43.3"
   }
 }
