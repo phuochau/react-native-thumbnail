@@ -14,6 +14,7 @@ import android.provider.MediaStore.Video.Thumbnails;
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
+import android.media.MediaMetadataRetriever;
 import java.util.UUID;
 import java.io.File;
 import java.io.OutputStream;
@@ -36,7 +37,10 @@ public class RNThumbnailModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void get(String filePath, Promise promise) {
     filePath = filePath.replace("file://","");
-    Bitmap image = ThumbnailUtils.createVideoThumbnail(filePath, Thumbnails.MINI_KIND);
+    MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+    retriever.setDataSource(filePath);
+    Bitmap image = retriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+
     String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
     try {
