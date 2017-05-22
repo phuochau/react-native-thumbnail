@@ -50,7 +50,7 @@ public class RNThumbnailModule extends ReactContextBaseJavaModule {
     int bitmapWidth = image.getWidth();
     int bitmapHeight = image.getHeight();
 
-    if ((bitmapWidth > bitmapHeight) !== (videoWidth > videoHeight)) {
+    if ((bitmapWidth > bitmapHeight) != (videoWidth > videoHeight)) {
       // we need to rotate image
       Matrix matrix = new Matrix();
       matrix.postRotate(-90);
