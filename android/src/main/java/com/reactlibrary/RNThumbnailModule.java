@@ -42,20 +42,7 @@ public class RNThumbnailModule extends ReactContextBaseJavaModule {
     filePath = filePath.replace("file://","");
     MediaMetadataRetriever retriever = new MediaMetadataRetriever();
     retriever.setDataSource(filePath);
-    int videoWidth = Integer.parseInt(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH));
-    int videoHeight = Integer.parseInt(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT));
-
     Bitmap image = retriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-
-    int bitmapWidth = image.getWidth();
-    int bitmapHeight = image.getHeight();
-
-    if ((bitmapWidth > bitmapHeight) != (videoWidth > videoHeight)) {
-      // we need to rotate image
-      Matrix matrix = new Matrix();
-      matrix.postRotate(-90);
-      image = Bitmap.createBitmap(image, 0, 0, bitmapWidth, bitmapHeight, matrix, true);
-    }
 
     String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/thumb";
 
