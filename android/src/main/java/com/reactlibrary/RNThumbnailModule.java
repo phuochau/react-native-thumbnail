@@ -42,8 +42,8 @@ public class RNThumbnailModule extends ReactContextBaseJavaModule {
     filePath = filePath.replace("file://","");
     MediaMetadataRetriever retriever = new MediaMetadataRetriever();
     retriever.setDataSource(filePath);
-    int videoWidth = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
-    int videoHeight = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
+    int videoWidth = Integer.parseInt(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH));
+    int videoHeight = Integer.parseInt(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT));
 
     Bitmap image = retriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
 
