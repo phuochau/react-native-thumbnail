@@ -15,10 +15,13 @@ import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
 import android.media.MediaMetadataRetriever;
+import 	android.graphics.Matrix;
+
 import java.util.UUID;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
+
 
 public class RNThumbnailModule extends ReactContextBaseJavaModule {
 
@@ -39,7 +42,20 @@ public class RNThumbnailModule extends ReactContextBaseJavaModule {
     filePath = filePath.replace("file://","");
     MediaMetadataRetriever retriever = new MediaMetadataRetriever();
     retriever.setDataSource(filePath);
+    int videoWidth = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
+    int videoHeight = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
+
     Bitmap image = retriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+
+    int bitmapWidth = image.getWidth();
+    int bitmapHeight = image.getHeight();
+
+    if ((bitmapWidth > bitmapHeight) !== (videoWidth > videoHeight)) {
+      // we need to rotate image
+      Matrix matrix = new Matrix();
+      matrix.postRotate(-90);
+      image = Bitmap.createBitmap(image, 0, 0, bitmapWidth, bitmapHeight, matrix, true);
+    }
 
     String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/thumb";
 
