@@ -16,7 +16,6 @@ public class RNThumbnailPackage implements ReactPackage {
       return Arrays.<NativeModule>asList(new RNThumbnailModule(reactContext));
     }
 
-    @Override
     public List<Class<? extends JavaScriptModule>> createJSModules() {
       return Collections.emptyList();
     }
