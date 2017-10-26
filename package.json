@@ -1,7 +1,6 @@
-
 {
   "name": "react-native-thumbnail",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,6 +16,9 @@
   "author": "",
   "license": "",
   "peerDependencies": {
-    "react-native": "^0.43.3"
+    "react-native": "^0.47.0"
+  },
+  "dependencies": {
+    "react-native-thumbnail": "^1.1.0"
   }
 }
