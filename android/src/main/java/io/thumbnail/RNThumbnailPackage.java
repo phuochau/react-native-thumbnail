@@ -1,5 +1,5 @@
 
-package com.reactlibrary;
+package io.thumbnail;
 
 import java.util.Arrays;
 import java.util.Collections;
