@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import android.media.ThumbnailUtils;
 import android.provider.MediaStore;
@@ -38,23 +39,46 @@ public class RNThumbnailModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void get(String filePath, Promise promise) {
+  public void get(String filePath, ReadableMap options, Promise promise) {
+
+    // saveToDir: '.app_thumbs', // "/storage/emulated/0/.app_thumbs/",
+    // default "/storage/emulated/0/thumb/"
+    // uniqueNames: false, // default same names
+
+    boolean uniqueNames = false;
+    if (options.hasKey("uniqueNames")) {
+      uniqueNames = options.getBoolean("uniqueNames");
+    }
+
+    String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/thumb";
+
     filePath = filePath.replace("file://","");
     MediaMetadataRetriever retriever = new MediaMetadataRetriever();
     retriever.setDataSource(filePath);
     Bitmap image = retriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
 
-    String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/thumb";
-
     try {
+
+      File original = new File(filePath);
+
+      if (options.hasKey("saveToDir")) {
+        fullPath = original.getParent().toString() + "/" + options.getString("saveToDir");
+      }
+
       File dir = new File(fullPath);
       if (!dir.exists()) {
         dir.mkdirs();
       }
 
       OutputStream fOut = null;
-      // String fileName = "thumb-" + UUID.randomUUID().toString() + ".jpeg";
-      String fileName = "thumb-" + UUID.randomUUID().toString() + ".jpeg";
+
+
+      String fileName = original.getName() + ".jpeg";
+
+      if (uniqueNames) {
+        fileName = "thumb-" + UUID.randomUUID().toString() + ".jpeg";
+      }
+
       File file = new File(fullPath, fileName);
       file.createNewFile();
       fOut = new FileOutputStream(file);
