@@ -48,7 +48,20 @@ Get thumbnail from local media. Currently, it only supports for video.
 ```javascript
 import RNThumbnail from 'react-native-thumbnail';
 
-RNThumbnail.get(filepath).then((result) => {
-  console.log(result.path); // thumbnail path
-})
+
+let options = {
+  saveToDir: '.app_thumbs', //default "/storage/emulated/0/thumb/"
+  uniqueNames: false,// default "false", same names
+};
+const filePath = "/storage/emulated/0/DCIM/Camera/VID_20180116_202826.mp4";
+RNThumbnail.get(filePath, options).then((result) => {
+  console.log(filePath, result);
+  /** result:
+  {
+    height: 320
+    path:"file:///storage/emulated/0/DCIM/Camera/.app_thumbs/VID_20180116_202826.mp4.jpeg" // thumbnail path
+    width:240
+  }
+ */
+});
 ```
