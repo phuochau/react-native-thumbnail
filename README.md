@@ -35,15 +35,6 @@ Get thumbnail from local media. Currently, it only supports for video.
       compile project(':react-native-thumbnail')
   	```
 
-#### Windows
-[Read it! :D](https://github.com/ReactWindows/react-native)
-
-1. In Visual Studio add the `RNThumbnail.sln` in `node_modules/react-native-thumbnail/windows/RNThumbnail.sln` folder to their solution, reference from their app.
-2. Open up your `MainPage.cs` app
-  - Add `using Com.Reactlibrary.RNThumbnail;` to the usings at the top of the file
-  - Add `new RNThumbnailPackage()` to the `List<IReactPackage>` returned by the `Packages` method
-
-
 ## Usage
 ```javascript
 import RNThumbnail from 'react-native-thumbnail';
