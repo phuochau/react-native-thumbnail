@@ -1,6 +1,13 @@
 
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 
-const { RNThumbnail } = NativeModules;
+const { RNThumbnail: NativeRNThumbnail } = NativeModules;
 
-export default RNThumbnail;
+export default class RNThumbnail {
+  static get(path, options = { timestamp: 0 }) {
+    if (Platform.OS === 'ios') {
+      return NativeRNThumbnail.get(path, options.timestamp)
+    }
+    return NativeRNThumbnail.get(path)
+  }
+};
