@@ -13,8 +13,8 @@
     "type": "git",
     "url": "git+https://github.com/phuochau/react-native-thumbnail.git"
   },
-  "author": "",
-  "license": "",
+  "author": "Hau Vo <hau.vophuoc@gmail.com>",
+  "license": "MIT",
   "peerDependencies": {
     "react-native": "^0.47.0"
   },
