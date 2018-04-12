@@ -17,8 +17,5 @@
   "license": "",
   "peerDependencies": {
     "react-native": "^0.47.0"
-  },
-  "dependencies": {
-    "react-native-thumbnail": "^1.1.0"
   }
 }
