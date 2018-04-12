@@ -43,3 +43,9 @@ RNThumbnail.get(filepath).then((result) => {
   console.log(result.path); // thumbnail path
 })
 ```
+
+### Options
+
+`RNThumbnail.get` supports a second argument which is a object with the following possible options:
+
+- `timestamp` (currently `ios` only): The timestamp of the thumbnail in seconds (calculates the frame based on the FPS of the video). Default Value: `0`
