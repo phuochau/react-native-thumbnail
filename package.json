@@ -13,9 +13,6 @@
     "type": "git",
     "url": "git+https://github.com/phuochau/react-native-thumbnail.git"
   },
-  "author": "",
-  "license": "",
-  "dependencies": {
-    "react-native-thumbnail": "^1.1.0"
-  }
+  "author": "Hau Vo <hau.vophuoc@gmail.com>",
+  "license": "MIT"
 }
