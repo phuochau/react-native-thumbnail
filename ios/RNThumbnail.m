@@ -14,6 +14,7 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(get:(NSString *)filepath
                   timestamp:(NSNumber * __nonnull)timestamp
+                  quality:(NSNumber * _nonnull)quality
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
@@ -42,7 +43,7 @@ RCT_EXPORT_METHOD(get:(NSString *)filepath
                                                                        NSUserDomainMask,
                                                                        YES) lastObject];
         
-        NSData *data = UIImageJPEGRepresentation(thumbnail, 1.0);
+        NSData *data = UIImageJPEGRepresentation(thumbnail, [quality floatValue]);
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSString *fullPath = [tempDirectory stringByAppendingPathComponent: [NSString stringWithFormat:@"thumb-%@.jpg", [[NSProcessInfo processInfo] globallyUniqueString]]];
         [fileManager createFileAtPath:fullPath contents:data attributes:nil];
