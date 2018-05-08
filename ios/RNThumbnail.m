@@ -14,7 +14,7 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(get:(NSString *)filepath
                   timestamp:(NSNumber * __nonnull)timestamp
-                  quality:(NSNumber * _nonnull)quality
+                  quality:(NSNumber * __nonnull)quality
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
