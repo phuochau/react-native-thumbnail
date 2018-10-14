@@ -1,7 +1,7 @@
 {
   "name": "react-native-thumbnail",
   "version": "1.1.3",
-  "description": "",
+  "description": "Get thumbnail from local media.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

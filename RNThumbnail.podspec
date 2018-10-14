@@ -3,26 +3,20 @@ require 'json'
 package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
 
 Pod::Spec.new do |s|
-  s.name         = "RNThumbnail"
-  s.version      = package['version']
-  s.summary      = "RNThumbnail"
-  s.description  = <<-DESC
-                  RNThumbnail
-                   DESC
-  s.homepage     = ""
-  s.license      = "MIT"
-  # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
-  s.author             = { "author" => "author@domain.cn" }
-  s.homepage     = "https://github.com/author/RNThumbnail"
-  s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/author/RNThumbnail.git", :tag => "master" }
-  s.source_files  = "ios/**/*.{h,m}"
-  s.requires_arc = true
+  s.name           = "RNThumbnail"
+  s.version        = package['version']
+  s.summary        = package['description']
+  s.description    = package['description']
+  s.license        = package['license']
+  s.author         = package['author']
+  s.homepage       = "https://github.com/phuochau/react-native-thumbnail/#readme"
+  s.source         = { :git => 'https://github.com/phuochau/react-native-thumbnail.git' }
 
+  s.requires_arc   = true
+  s.platform       = :ios, '7.0'
 
-  s.dependency "React"
-  #s.dependency "others"
+  s.preserve_paths = 'README.md', 'package.json', 'index.js'
+  s.source_files   = 'ios/**/*.{h,m}'
 
+  s.dependency 'React'
 end
-
-  
