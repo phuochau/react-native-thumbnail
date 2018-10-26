@@ -79,4 +79,18 @@ public class RNThumbnailModule extends ReactContextBaseJavaModule {
       promise.reject("E_RNThumnail_ERROR", e);
     }
   }
+
+  @ReactMethod
+  public void setDirEmpty(){ 
+    String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/thumb"; 
+    File dir = new File(path); 
+    File[] childFileList = dir.listFiles(); 
+
+    if (dir.exists()) { 
+      for (File childFile : childFileList) { 
+          childFile.delete(); 
+        } 
+        dir.delete(); 
+      } 
+    }
 }
