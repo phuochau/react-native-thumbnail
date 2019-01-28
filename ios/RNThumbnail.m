@@ -38,6 +38,7 @@ RCT_EXPORT_METHOD(get:(NSString *)filepath resolve:(RCTPromiseResolveBlock)resol
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSString *fullPath = [tempDirectory stringByAppendingPathComponent: [NSString stringWithFormat:@"thumb-%@.jpg", [[NSProcessInfo processInfo] globallyUniqueString]]];
         [fileManager createFileAtPath:fullPath contents:data attributes:nil];
+        CGImageRelease(imgRef);
         if (resolve)
             resolve(@{ @"path" : fullPath,
                        @"width" : [NSNumber numberWithFloat: thumbnail.size.width],
