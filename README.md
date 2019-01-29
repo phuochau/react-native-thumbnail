@@ -32,7 +32,7 @@ Get thumbnail from local media. Currently, it only supports for video.
   	```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
   	```
-      compile project(':react-native-thumbnail')
+      implementation project(':react-native-thumbnail')
   	```
 
 ## Usage
