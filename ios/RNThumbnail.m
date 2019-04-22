@@ -12,8 +12,11 @@
 }
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(get:(NSString *)filepath resolve:(RCTPromiseResolveBlock)resolve
-                               reject:(RCTPromiseRejectBlock)reject)
+RCT_EXPORT_METHOD(get:(NSString *)filepath
+                  timestamp:(NSNumber * __nonnull)timestamp
+                  quality:(NSNumber * __nonnull)quality
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 {
     @try {
         filepath = [filepath stringByReplacingOccurrencesOfString:@"file://"
@@ -21,11 +24,17 @@ RCT_EXPORT_METHOD(get:(NSString *)filepath resolve:(RCTPromiseResolveBlock)resol
         NSURL *vidURL = [NSURL fileURLWithPath:filepath];
         
         AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:vidURL options:nil];
+        int64_t value = 1;
+        if (timestamp != 0) {
+            AVAssetTrack * videoAssetTrack = [asset tracksWithMediaType: AVMediaTypeVideo].firstObject;
+            value = [timestamp longLongValue] * videoAssetTrack.nominalFrameRate;
+        }
+        
         AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
         generator.appliesPreferredTrackTransform = YES;
         
         NSError *err = NULL;
-        CMTime time = CMTimeMake(1, 60);
+        CMTime time = CMTimeMake(value, 60);
         
         CGImageRef imgRef = [generator copyCGImageAtTime:time actualTime:NULL error:&err];
         UIImage *thumbnail = [UIImage imageWithCGImage:imgRef];
@@ -34,7 +43,7 @@ RCT_EXPORT_METHOD(get:(NSString *)filepath resolve:(RCTPromiseResolveBlock)resol
                                                                        NSUserDomainMask,
                                                                        YES) lastObject];
         
-        NSData *data = UIImageJPEGRepresentation(thumbnail, 1.0);
+        NSData *data = UIImageJPEGRepresentation(thumbnail, [quality floatValue]);
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSString *fullPath = [tempDirectory stringByAppendingPathComponent: [NSString stringWithFormat:@"thumb-%@.jpg", [[NSProcessInfo processInfo] globallyUniqueString]]];
         [fileManager createFileAtPath:fullPath contents:data attributes:nil];
@@ -49,4 +58,3 @@ RCT_EXPORT_METHOD(get:(NSString *)filepath resolve:(RCTPromiseResolveBlock)resol
 }
 
 @end
-  
