@@ -15,13 +15,12 @@ import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
 import android.media.MediaMetadataRetriever;
-import 	android.graphics.Matrix;
+import android.graphics.Matrix;
 
 import java.util.UUID;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
-
 
 public class RNThumbnailModule extends ReactContextBaseJavaModule {
 
@@ -32,17 +31,38 @@ public class RNThumbnailModule extends ReactContextBaseJavaModule {
     this.reactContext = reactContext;
   }
 
+  public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+    int width = image.getWidth();
+    int height = image.getHeight();
+
+    float bitmapRatio = (float) width / (float) height;
+    if (bitmapRatio > 1) {
+      width = maxSize;
+      height = (int) (width / bitmapRatio);
+    } else {
+      height = maxSize;
+      width = (int) (height * bitmapRatio);
+    }
+
+    return Bitmap.createScaledBitmap(image, width, height, true);
+  }
+
   @Override
   public String getName() {
     return "RNThumbnail";
   }
 
   @ReactMethod
-  public void get(String filePath, Promise promise) {
-    filePath = filePath.replace("file://","");
+  public void getResized(String filePath, Integer maxSize, Promise promise) {
+    filePath = filePath.replace("file://", "");
     MediaMetadataRetriever retriever = new MediaMetadataRetriever();
     retriever.setDataSource(filePath);
     Bitmap image = retriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+
+    if (maxSize != null) {
+      // resize the image based on the maxSize parameter
+      image = getResizedBitmap(image, maxSize);
+    }
 
     String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/thumb";
 
@@ -64,7 +84,8 @@ public class RNThumbnailModule extends ReactContextBaseJavaModule {
       fOut.flush();
       fOut.close();
 
-      // MediaStore.Images.Media.insertImage(reactContext.getContentResolver(), file.getAbsolutePath(), file.getName(), file.getName());
+      // MediaStore.Images.Media.insertImage(reactContext.getContentResolver(),
+      // file.getAbsolutePath(), file.getName(), file.getName());
 
       WritableMap map = Arguments.createMap();
 
@@ -78,5 +99,10 @@ public class RNThumbnailModule extends ReactContextBaseJavaModule {
       Log.e("E_RNThumnail_ERROR", e.getMessage());
       promise.reject("E_RNThumnail_ERROR", e);
     }
+  }
+
+  @ReactMethod
+  public void get(String filePath, Promise promise) {
+    getResized(filePath, null, promise);
   }
 }
