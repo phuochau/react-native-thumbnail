@@ -41,12 +41,14 @@ public class RNThumbnailModule extends ReactContextBaseJavaModule {
   public void get(String filePath, Promise promise) {
     filePath = filePath.replace("file://","");
     MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-    retriever.setDataSource(filePath);
-    Bitmap image = retriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-
-    String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/thumb";
 
     try {
+      retriever.setDataSource(filePath);
+      Bitmap image = retriever.getFrameAtTime(1000000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+      retriever.release();
+
+      String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/thumb";
+
       File dir = new File(fullPath);
       if (!dir.exists()) {
         dir.mkdirs();
@@ -77,6 +79,6 @@ public class RNThumbnailModule extends ReactContextBaseJavaModule {
     } catch (Exception e) {
       Log.e("E_RNThumnail_ERROR", e.getMessage());
       promise.reject("E_RNThumnail_ERROR", e);
-    }
+    }  
   }
 }
