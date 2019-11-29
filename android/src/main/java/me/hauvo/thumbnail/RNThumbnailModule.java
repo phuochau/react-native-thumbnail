@@ -79,6 +79,6 @@ public class RNThumbnailModule extends ReactContextBaseJavaModule {
     } catch (Exception e) {
       Log.e("E_RNThumnail_ERROR", e.getMessage());
       promise.reject("E_RNThumnail_ERROR", e);
-    }  
+    }
   }
 }
